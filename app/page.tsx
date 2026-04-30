@@ -19,7 +19,6 @@ export default function Home() {
   return (
     <main className="flex flex-col">
 
-      {/* 🔘 Theme Toggle */}
       <DropdownMenu>
         <DropdownMenuTrigger asChild className="absolute right-10 top-6 z-20">
           <Button variant="outline" size="icon">
@@ -42,13 +41,10 @@ export default function Home() {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      {/* 🚀 HERO */}
       <section className="relative flex min-h-screen flex-col items-center justify-center bg-background px-6 text-center overflow-hidden">
 
-        {/* 🔻 Background animado */}
         <NetworkBackground />
 
-        {/* 🔼 Conteúdo */}
         <div className="relative z-10">
           <h1 className="text-5xl font-bold tracking-tight">
             Saldanha Ltda.

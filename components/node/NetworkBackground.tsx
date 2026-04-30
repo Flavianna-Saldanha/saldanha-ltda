@@ -36,7 +36,6 @@ export default function NetworkBackground() {
     const resize = () => {
       const { w, h } = getSize();
 
-      // 🔥 só atualiza se realmente mudou (evita bug mobile)
       if (w === width && h === height) return;
 
       width = w;
@@ -45,13 +44,13 @@ export default function NetworkBackground() {
       canvas.width = width;
       canvas.height = height;
 
-      createNodes(); // recria proporcional
+      createNodes();
     };
 
     const createNodes = () => {
       nodes = [];
 
-      const density = Math.floor((width * height) / 25000); // 🔥 escala automática
+      const density = Math.floor((width * height) / 25000);
 
       for (let i = 0; i < density; i++) {
         nodes.push({
