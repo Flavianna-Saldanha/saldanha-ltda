@@ -11,25 +11,8 @@ import {
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import NetworkBackground from "@/components/NetworkBackground";
 
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"
-
-import { Badge } from "@/components/ui/badge"
-import {
-  Card,
-  CardAction,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import Image from "next/image"
 
 export default function Home() {
 	const { setTheme } = useTheme()
@@ -82,6 +65,9 @@ export default function Home() {
           </Link>
         </div>
       </section>
+			
+			<NetworkBackground />
+
     </main>
   )
 }
