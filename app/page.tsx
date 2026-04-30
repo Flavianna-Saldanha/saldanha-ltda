@@ -17,8 +17,7 @@ export default function Home() {
   const { setTheme } = useTheme();
 
   return (
-    <main className="flex flex-col">
-
+    <div className="container m-auto">
       <DropdownMenu>
         <DropdownMenuTrigger asChild className="absolute right-10 top-6 z-20">
           <Button variant="outline" size="icon">
@@ -55,22 +54,16 @@ export default function Home() {
             e a inovação do seu negócio.
           </p>
 
-          <div className="mt-8 flex gap-4 justify-center">
+          <div className="mt-8">
             <Link href="/signup">
               <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
                 Faça seu orçamento
-              </Button>
-            </Link>
-
-            <Link href="/login">
-              <Button variant="outline" size="lg">
-                Entre em contato
               </Button>
             </Link>
           </div>
         </div>
 
       </section>
-    </main>
+    </div>
   );
 }
