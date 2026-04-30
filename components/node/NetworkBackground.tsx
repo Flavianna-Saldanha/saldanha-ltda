@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useTheme } from "next-themes";
 
 type Node = {
   x: number;
@@ -11,6 +12,7 @@ type Node = {
 
 export default function NetworkBackground() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const { resolvedTheme } = useTheme();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -24,43 +26,63 @@ export default function NetworkBackground() {
     let animationFrameId: number;
     let nodes: Node[] = [];
 
+    const getSize = () => {
+      return {
+        w: document.documentElement.clientWidth,
+        h: document.documentElement.clientHeight,
+      };
+    };
+
     const resize = () => {
-      width = canvas.offsetWidth;
-      height = canvas.offsetHeight;
+      const { w, h } = getSize();
+
+      // 🔥 só atualiza se realmente mudou (evita bug mobile)
+      if (w === width && h === height) return;
+
+      width = w;
+      height = h;
+
       canvas.width = width;
       canvas.height = height;
+
+      createNodes(); // recria proporcional
+    };
+
+    const createNodes = () => {
+      nodes = [];
+
+      const density = Math.floor((width * height) / 25000); // 🔥 escala automática
+
+      for (let i = 0; i < density; i++) {
+        nodes.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: (Math.random() - 0.5) * 0.3,
+        });
+      }
     };
 
     resize();
     window.addEventListener("resize", resize);
 
-    const createNodes = () => {
-      nodes = [];
-      for (let i = 0; i < 50; i++) {
-        nodes.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: (Math.random() - 0.5) * 0.5,
-        });
-      }
-    };
-
-    createNodes();
-
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // linhas
+      const isDark = resolvedTheme === "dark";
+      const lineColor = isDark
+        ? "rgba(255,255,255,0.15)"
+        : "rgba(0,0,0,0.15)";
+      const nodeColor = isDark ? "#fff" : "#000";
+
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
           const dx = nodes[i].x - nodes[j].x;
           const dy = nodes[i].y - nodes[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
-          if (dist < 140) {
-            ctx.strokeStyle = `rgba(0, 209, 255, ${0.2 - dist / 700})`;
-            ctx.lineWidth = 1;
+          if (dist < 130) {
+            ctx.strokeStyle = lineColor;
             ctx.beginPath();
             ctx.moveTo(nodes[i].x, nodes[i].y);
             ctx.lineTo(nodes[j].x, nodes[j].y);
@@ -69,11 +91,10 @@ export default function NetworkBackground() {
         }
       }
 
-      // pontos
       nodes.forEach((n) => {
         ctx.beginPath();
-        ctx.arc(n.x, n.y, 2.5, 0, Math.PI * 2);
-        ctx.fillStyle = "#00d1ff";
+        ctx.arc(n.x, n.y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = nodeColor;
         ctx.fill();
 
         n.x += n.vx;
@@ -92,12 +113,12 @@ export default function NetworkBackground() {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener("resize", resize);
     };
-  }, []);
+  }, [resolvedTheme]);
 
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full z-0"
+      className="fixed inset-0 w-screen h-screen z-0 pointer-events-none"
     />
   );
 }
