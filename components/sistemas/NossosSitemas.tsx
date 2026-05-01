@@ -18,8 +18,20 @@ export default function NossosSitemas() {
 					width={65}
 					height={300}
 					className="
-						relative -top-8 -z-10 left-36
+						relative -top-8 -z-10 left-36 
 						lg:left-59 lg:w-20 lg:-top-9
+						dark:hidden
+						"
+				/>
+				<Image 
+					src={"/assets/LINHAS-2.png"}
+					alt="LINHAS"
+					width={65}
+					height={300}
+					className="
+						relative -top-9 -z-10 left-36
+						lg:left-59 lg:w-20 lg:-top-10
+						hidden dark:block
 						"
 				/>
 			</div>

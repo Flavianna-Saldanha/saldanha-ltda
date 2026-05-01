@@ -57,7 +57,7 @@ export default function Home() {
 
           <div className="mt-8">
             <Link href="/signup">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
+              <Button size="lg" className="bg-black hover:bg-gray-800 text-white dark:bg-[#D9D9D9] dark:text-black dark:hover:bg-gray-300">
                 Faça seu orçamento
               </Button>
             </Link>
