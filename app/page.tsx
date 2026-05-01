@@ -12,6 +12,7 @@ import {
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import NetworkBackground from "@/components/node/NetworkBackground";
+import NossosSitemas from "@/components/sistemas/NossosSitemas";
 
 export default function Home() {
   const { setTheme } = useTheme();
@@ -62,8 +63,8 @@ export default function Home() {
             </Link>
           </div>
         </div>
-
       </section>
+			<NossosSitemas />
     </div>
   );
 }
